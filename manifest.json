@@ -1,0 +1,21 @@
+{
+    "manifest_version": 3,
+    "name": "Email Alias Extension",
+    "version": "1.0",
+    "description": "Replace your email with an alias to protect your privacy and prevent spam.",
+    "icons": {
+      "48": "icon.png"
+    },
+    "permissions": ["activeTab"],
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["content.js"]
+      }
+    ],
+    "action": {
+      "default_icon": "icon.png",
+      "default_title": "Insert Email Alias"
+    }
+  }
+  
