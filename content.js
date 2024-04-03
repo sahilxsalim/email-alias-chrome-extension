@@ -14,7 +14,6 @@ const getMainDomain = (hostname) => {
 function addIconToEmailInput(input) {
     // Create the icon element
     // Check if the input is hidden or if any of its classes have 'hidden' or 'invisible'
-
     if (input.display === 'none' || input.type === 'hidden' || input.style.display === 'none' || input.style.visibility === 'hidden' || input.style.opacity === '0' || input.type === 'submit') {
         return;
     }
@@ -26,7 +25,7 @@ function addIconToEmailInput(input) {
     // if (input.nextElementSibling && input.nextElementSibling.src === icon.src) {
     //     return; // Icon already added
     // }
- 
+
     let div = document.createElement('div');
     div.style.cssText = 'display: flex; align-items: center; width: 100%;';
     // input.parentNode.insertBefore(div, input.nextSibling);
@@ -49,26 +48,30 @@ function addIconToEmailInput(input) {
 
 // Function to process all inputs on the page
 function processInputs() {
+    console.log("PROCESSING INPUTS")
     document.querySelectorAll('input[type=email]:enabled:not([readonly]),input[name*="Email"], input[name*="email"]:enabled:not([readonly]):not([type="checkbox"]):not([type="radio"]),input[placeholder*="mail"]:enabled:not([readonly]):not([type="checkbox"]):not([type="radio"]),input[placeholder*="Mail"]:enabled:not([readonly]):not([type="checkbox"]):not([type="radio"]),input[placeholder*="почта"]:enabled:not([readonly]):not([type="checkbox"]):not([type="radio"]),input[placeholder*="пошта"]:enabled:not([readonly]):not([type="checkbox"]):not([type="radio"]),input[placeholder*=\'דוא"ל\']:enabled:not([readonly]):not([type="checkbox"]):not([type="radio"]),input[placeholder*="البريد"]:enabled:not([readonly]):not([type="checkbox"]):not([type="radio"]),input[placeholder*="correo electrónico"]:enabled:not([readonly]):not([type="checkbox"]):not([type="radio"]),input[placeholder*="อีเมล"]:enabled:not([readonly]):not([type="checkbox"]):not([type="radio"]),input[placeholder*="ईमेल"]:enabled:not([readonly]):not([type="checkbox"]):not([type="radio"]),input[placeholder*="E-poçta"]:enabled:not([readonly]):not([type="checkbox"]):not([type="radio"]),input[placeholder*="E-posta"]:enabled:not([readonly]):not([type="checkbox"]):not([type="radio"]),input[placeholder*="E-post"]:enabled:not([readonly]):not([type="checkbox"]):not([type="radio"]),input[placeholder*="E-mel"]:enabled:not([readonly]):not([type="checkbox"]):not([type="radio"]),input[placeholder*="پست الکترونیک"]:enabled:not([readonly]):not([type="checkbox"]):not([type="radio"]),input[placeholder*="이메일"]:enabled:not([readonly]):not([type="checkbox"]):not([type="radio"]),input[placeholder*="Eメール"]:enabled:not([readonly]):not([type="checkbox"]):not([type="radio"]),input[placeholder*="R-phost"]:enabled:not([readonly]):not([type="checkbox"]):not([type="radio"]),input[placeholder*="Surel"]:enabled:not([readonly]):not([type="checkbox"]):not([type="radio"]),input[placeholder*="Tölvupóstur"]:enabled:not([readonly]):not([type="checkbox"]):not([type="radio"]),input[placeholder*="Sähköposti"]:enabled:not([readonly]):not([type="checkbox"]):not([type="radio"]),input[placeholder*="电邮"]:enabled:not([readonly]):not([type="checkbox"]):not([type="radio"])')
-    .forEach(input => {
-        input.hasAttribute('email-alias-added') || (input.setAttribute('email-alias-added', ''), addIconToEmailInput(input));
-    });
+        .forEach(input => {
+            input.hasAttribute('email-alias-added') || (input.setAttribute('email-alias-added', ''), addIconToEmailInput(input));
+        });
 }
 
-// MutationObserver to observe changes in the DOM
 const observer = new MutationObserver((mutations) => {
+    let flag = false;
     mutations.forEach((mutation) => {
-        console.log("MUTATION")
         if (mutation.addedNodes.length) {
-            processInputs(); // Process inputs whenever new nodes are added
+            flag = true;
         }
     });
+    if (flag) {
+        processInputs(); // Process inputs whenever new nodes are added
+    }
 });
 
 // Start observing the document body for added nodes
-observer.observe(document.body, { childList: true, subtree: true });
+observer.observe(document.querySelector("body"), { childList: true, subtree: true, attributes: false });
 
 // Initial processing of inputs
 processInputs();
+
 
 

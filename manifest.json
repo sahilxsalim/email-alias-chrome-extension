@@ -1,21 +1,32 @@
 {
-    "manifest_version": 3,
-    "name": "Email Alias Extension",
-    "version": "1.0",
-    "description": "Replace your email with an alias to protect your privacy and prevent spam.",
-    "icons": {
-      "48": "icon.png"
-    },
-    "permissions": ["activeTab"],
-    "content_scripts": [
-      {
-        "matches": ["<all_urls>"],
-        "js": ["content.js"]
-      }
-    ],
-    "action": {
-      "default_icon": "icon.png",
-      "default_title": "Insert Email Alias"
+  "manifest_version": 3,
+  "name": "MailMask",
+  "version": "1.0",
+  "description": "Replace your email with an alias to protect your privacy and prevent spam.",
+  "icons": {
+    "16": "icons/icon128.png",
+    "48": "icons/icon128.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_end",
+      "all_frames": true
     }
+  ],
+  "action": {
+    "default_icon": {
+      "16": "icons/icon128.png",
+      "48": "icons/icon128.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "MailMask",
+    "default_popup": "popup.html"
   }
-  
+}
