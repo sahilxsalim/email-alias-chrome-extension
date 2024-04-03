@@ -55,6 +55,7 @@ function processInputs() {
         });
 }
 
+let debounceTimer;
 const observer = new MutationObserver((mutations) => {
     let flag = false;
     mutations.forEach((mutation) => {
@@ -63,7 +64,10 @@ const observer = new MutationObserver((mutations) => {
         }
     });
     if (flag) {
-        processInputs(); // Process inputs whenever new nodes are added
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            processInputs();
+        }, 100);
     }
 });
 
